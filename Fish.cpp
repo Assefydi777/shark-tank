@@ -10,6 +10,7 @@ void VertiFish::onWallCollision()
 //Moves the fish either up or down every frame, depending on which direction it is facing
 void VertiFish::swim(Tank* tank) 
 { 
+   
 }
 
 //******************* HorizontaFish function implementations *******************

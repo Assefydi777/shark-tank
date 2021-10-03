@@ -10,6 +10,7 @@ class Fish : public TankObject
 		//Abstract function called by the Tank when a Fish collides with a wall
 		virtual void onWallCollision() = 0; 
 		//TODO: Make an abstract swim function for all fish to implement
+		virtual void swim(Tank* tank) = 0;
 		virtual ~Fish() {};
 	protected:
 		static int count; //Count of all of the fish in the tank
@@ -24,9 +25,10 @@ class VertiFish : public Fish
 
 	protected:
 		virtual void onWallCollision(); //onWallCollision override. You can use this as reference for how to declare the other virtual functions...
-
 	public:
 		//TODO: Override the abstract swim function from the Fish class
+		virtual void swim(Tank* tank);
+
 		VertiFish(int x, int y, bool direction = true) : Fish(x, y, '^') { facingUp = direction; drawChar = facingUp ? '^' : 'V'; }
 };
 
@@ -40,6 +42,7 @@ class HorizontaFish : public Fish
 
 	public:
 		//TODO: Override the abstract swim function from the Fish class
+		virtual void swim(Tank* tank);
 		HorizontaFish(int x, int y, bool direction = true) : Fish(x, y, '>') { facingRight = direction; drawChar = facingRight ? '>' : '<'; }
 };
 
@@ -47,8 +50,10 @@ class WallFish : public Fish
 {
 	protected:
 		virtual void onWallCollision();
+
 	public:
 		//TODO: Override the abstract swim function from the Fish class
+		virtual void swim(Tank* tank);
 		WallFish(int x, int y) : Fish(x, y, 'W') {}
 };
 

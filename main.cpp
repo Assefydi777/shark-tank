@@ -4,7 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <cstdlib>
-//#include "Tank.h"
+#include "Tank.h"
 #include "Fish.h"
 
 #ifdef _WIN32
@@ -21,7 +21,7 @@ const int TANK_WIDTH = 60;
 const int TANK_HEIGHT = 12;
 
 //Constants for drawing/ refresh rate
-const unsigned int PROGRAM_DURATION = 8; //Approximate number of seconds that the program should run for
+const unsigned int PROGRAM_DURATION = 100; //Approximate number of seconds that the program should run for
 const unsigned int FPS = 15;
 const unsigned long TOTAL_FRAMES = PROGRAM_DURATION * FPS;
 const unsigned long SLEEP_TIME = 1000 / FPS;
@@ -63,7 +63,7 @@ int main(int argc, char** argv)
     randomlyAddFish(tank, fishSeed);
 
     //DEBUG: You can add fish here to test if you'd like, just make sure to delete it when you're done
-
+ 
     unsigned long frameCounter = 0; //How many frames have passed
     while (frameCounter < TOTAL_FRAMES)
     {

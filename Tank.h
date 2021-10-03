@@ -20,6 +20,7 @@ class TankObject
 		int getXPos() { return xPos; }
 		int getYPos() { return yPos; }
 		char getDrawChar() { return drawChar; }
+		
 };
 
 //Tank class which will hold all the Fish and water.

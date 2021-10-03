@@ -9,21 +9,25 @@ using namespace std;
 void Tank::update()
 {
 	//Update all the fish in the Tank (Make them swim)
-	for (Fish* fish : fishList)
-		fish->swim(this); //Let it swim
+	  for (Fish* fish : fishList)
+	 	fish->swim(this);   	// Let it swim
 }
 
 //Adds a fish to the Tank
-void Tank::addFish(Fish* fish)
+void Tank::addFish(Fish *fish)
 {
 	/*YOUR CODE HERE */
 	//TODO: Add the fish to the tankArr using the fish's x and y positions
 	//Add the Fish to the fishList vector
 	//You can assume that the person using this function will not place any fish on top of each other, but error checking is fine
+	int x = fish->getXPos();
+	int y = fish->getYPos();
+	tankArr[y][x] = fish;
+	fishList.push_back(fish);
 }
 
 //Attempts to move the fish by the given amount in the x and y directions
-void Tank::moveFish(Fish* fish, int xMove, int yMove)
+void Tank::moveFish(Fish *fish, int xMove, int yMove)
 {
 	//Find the positions that the fish wants to move to and it's current positions
 	int oldXPos = fish->getXPos(); //Previous x position of the fish
@@ -43,18 +47,38 @@ void Tank::moveFish(Fish* fish, int xMove, int yMove)
 			#Remember that since arrays are row, column that the order of access is arr[y][x], not x, y 
 		Else if the space contains a WallFish, then also call onWallCollision() (Check if the object's char is a 'W')
 			Also call onWallCollision*/
+
+	// check if fish goes out of bounds
+	if (newXPos >= width || newYPos >= height)
+	{
+		return fish->onWallCollision();
+	}
+	else if (newXPos < width && newYPos < height)
+	{
+
+		TankObject tankObj;
+
+		setTankSpace(oldXPos, oldYPos, nullptr);
+
+		tankObj.setPosition(newXPos, newYPos);
+
+		setTankSpace(newXPos, newYPos, fish);
+	}
+	else if (fish->getDrawChar() == 'W')
+	{
+		return fish->onWallCollision();
+	}
 }
 
 //Draws the tank and all of the fish inside of it. This is a helper function implemented for you.
 void Tank::drawTank()
 {
-	//Clear the screen
-	#ifdef _WIN32
+//Clear the screen
+#ifdef _WIN32
 	system("CLS");
-	#else
+#else
 	cout << "\033[2J\033[1;1H";
-	#endif
-
+#endif
 
 	int i, j;
 	cout << "|" << setfill('^') << setw(width + 1) << "|" << endl; //Draw the top of the tank
@@ -82,9 +106,20 @@ Tank::Tank(int width, int height)
 
 	//Allocate the 2D array based on the width and height
 	int i, j; //Iteration variables
-		/*YOUR CODE HERE*/
-	//TODO: Allocate all of the rows first
-	//TODO: Allocate the columns in each row next and initialize all the pointers to NULL
+			  /*YOUR CODE HERE*/
+			  //TODO: Allocate all of the rows first
+			  //TODO: Allocate the columns in each row next and initialize all the pointers to NULL
+ 
+	for (int i = 0; i < height; i++)
+	{
+		// allocate the row pointers in this loop
+		for (int j = 0; j < width; j++)
+		{
+			Fish *fish;
+			TankObject *obj = fish;
+			setTankSpace(j, i, obj);
+		} 
+	}
 }
 
 //Destructor for the Tank
@@ -93,7 +128,7 @@ Tank::~Tank()
 	/* YOUR CODE HERE */
 
 	//TODO: Go through and deallocate all of the fish in the fishList. Then deallocate the 2D tankArr array
-		//Deallocate each fish from the fishList
-		//Deallocate each of the rows
-		//Deallocate the column that held all of the rows
+	//Deallocate each fish from the fishList
+	//Deallocate each of the rows
+	//Deallocate the column that held all of the rows
 }
