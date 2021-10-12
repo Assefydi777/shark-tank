@@ -102,15 +102,15 @@ Tank::Tank(int width, int height)
 {
 	//Set the width and height members
 	this->width = width;
-	this->height = height; 
+	this->height = height;
 
 	//Allocate the 2D array based on the width and height
 
 	/*YOUR CODE HERE*/
 	//TODO: Allocate all of the rows first
 	//TODO: Allocate the columns in each row next and initialize all the pointers to NULL
- 
-	TankObject tankObj , *tankObjPtr; 
+
+	TankObject tankObj, *tankObjPtr;
 	tankObjPtr = &tankObj;
 	for (int i = 0; i < height; ++i)
 	{
@@ -136,7 +136,21 @@ Tank::~Tank()
 	/* YOUR CODE HERE */
 
 	//TODO: Go through and deallocate all of the fish in the fishList. Then deallocate the 2D tankArr array
+
 	//Deallocate each fish from the fishList
+	for (Fish *fish : fishList) 
+	fishList.pop_back();
+	
 	//Deallocate each of the rows
+
+	for (int i = 0; i < height; ++i)
+	{
+		for (int j = 0; j < width; ++j)
+		{
+			delete tankArr[i][j];
+		}
+	}
+
 	//Deallocate the column that held all of the rows
+	delete[] tankArr;
 }
