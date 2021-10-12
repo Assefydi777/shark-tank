@@ -9,8 +9,8 @@ using namespace std;
 void Tank::update()
 {
 	//Update all the fish in the Tank (Make them swim)
-	  for (Fish* fish : fishList)
-	 	fish->swim(this);   	// Let it swim
+	for (Fish *fish : fishList)
+		fish->swim(this); // Let it swim
 }
 
 //Adds a fish to the Tank
@@ -102,23 +102,31 @@ Tank::Tank(int width, int height)
 {
 	//Set the width and height members
 	this->width = width;
-	this->height = height;
+	this->height = height; 
 
 	//Allocate the 2D array based on the width and height
-	int i, j; //Iteration variables
-			  /*YOUR CODE HERE*/
-			  //TODO: Allocate all of the rows first
-			  //TODO: Allocate the columns in each row next and initialize all the pointers to NULL
+
+	/*YOUR CODE HERE*/
+	//TODO: Allocate all of the rows first
+	//TODO: Allocate the columns in each row next and initialize all the pointers to NULL
  
-	for (int i = 0; i < height; i++)
+	TankObject tankObj , *tankObjPtr; 
+	tankObjPtr = &tankObj;
+	for (int i = 0; i < height; ++i)
 	{
-		// allocate the row pointers in this loop
-		for (int j = 0; j < width; j++)
+		for (int j = 0; j < width; ++j)
 		{
-			Fish *fish;
-			TankObject *obj = fish;
-			setTankSpace(j, i, obj);
-		} 
+			*(*tankArr + j) = tankObjPtr;
+		}
+	}
+
+	// // Null out the pointers contained in the array:
+	for (int i = 0; i < height; ++i)
+	{
+		for (int j = 0; j < width; ++j)
+		{
+			*(*tankArr + j) = NULL;
+		}
 	}
 }
 

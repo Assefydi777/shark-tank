@@ -42,10 +42,11 @@ class Tank
 		void addFish(Fish* fish);
 		void moveFish(Fish* fish, int xMove, int yMove);
 		void drawTank();
-
+		int getTankHeight(){ return height;};
+		int getTankWidth(){return width;};
 		//Constructor / Destructor
 		Tank(int width, int height);
-		~Tank();
+		~Tank(); 
 };
 
 #endif
